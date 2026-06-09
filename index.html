@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chill Progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <main class="app-shell">
+    <section class="hero card">
+      <div>
+        <p class="eyebrow">Privado · simple · sin servidor</p>
+        <h1>Chill Progress</h1>
+        <p class="subtext">Un espacio privado para medir lo que hacéis, sin complicaros la vida.</p>
+      </div>
+      <div class="hero-actions">
+        <button id="exportBtn" class="btn ghost">Exportar</button>
+        <label class="btn ghost file-label">
+          Importar
+          <input id="importInput" type="file" accept="application/json" hidden />
+        </label>
+        <button id="resetBtn" class="btn danger">Reset</button>
+      </div>
+    </section>
+
+    <section class="grid stats-grid">
+      <article class="card stat-card">
+        <span class="stat-label">Objetivos activos</span>
+        <strong id="activeGoals">0</strong>
+      </article>
+      <article class="card stat-card">
+        <span class="stat-label">Acciones esta semana</span>
+        <strong id="weeklyActions">0</strong>
+      </article>
+      <article class="card stat-card">
+        <span class="stat-label">Puntos esta semana</span>
+        <strong id="weeklyPoints">0</strong>
+      </article>
+      <article class="card stat-card">
+        <span class="stat-label">Fiabilidad media</span>
+        <strong id="averageReliability">0%</strong>
+      </article>
+    </section>
+
+    <section class="grid two-cols">
+      <article class="card">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Configuración</p>
+            <h2>Vuestros nombres</h2>
+          </div>
+          <button id="saveNamesBtn" class="btn primary">Guardar</button>
+        </div>
+        <div class="names-grid">
+          <label>
+            <span>Persona 1</span>
+            <input id="nameOne" type="text" placeholder="Tu nombre" />
+          </label>
+          <label>
+            <span>Persona 2</span>
+            <input id="nameTwo" type="text" placeholder="Su nombre" />
+          </label>
+        </div>
+        <label class="full-width">
+          <span>Nota compartida</span>
+          <textarea id="sharedNote" rows="4" placeholder="Una frase, un recordatorio, una idea pendiente..."></textarea>
+        </label>
+      </article>
+
+      <article class="card">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Nuevo objetivo</p>
+            <h2>Añadir algo que sí vais a hacer</h2>
+          </div>
+        </div>
+        <form id="goalForm" class="goal-form">
+          <label>
+            <span>Para</span>
+            <select id="goalOwner"></select>
+          </label>
+          <label>
+            <span>Título</span>
+            <input id="goalTitle" type="text" placeholder="Entrenar 3 veces" required />
+          </label>
+          <label>
+            <span>Tipo</span>
+            <input id="goalCategory" type="text" placeholder="Salud, estudio, proyecto..." />
+          </label>
+          <label>
+            <span>Meta semanal</span>
+            <input id="goalTarget" type="number" min="1" value="3" required />
+          </label>
+          <label>
+            <span>Puntos por acción</span>
+            <input id="goalPoints" type="number" min="1" value="1" required />
+          </label>
+          <div class="goal-form-actions">
+            <button class="btn primary" type="submit">Crear objetivo</button>
+          </div>
+        </form>
+      </article>
+    </section>
+
+    <section class="card">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Panel</p>
+          <h2>Objetivos</h2>
+        </div>
+        <span class="hint">Pulsa “+1” cuando cumpláis una acción</span>
+      </div>
+      <div id="goalList" class="goal-list"></div>
+      <div id="emptyState" class="empty-state hidden">
+        Todavía no hay objetivos. Cread el primero y empezad con algo pequeño.
+      </div>
+    </section>
+  </main>
+
+  <template id="goalTemplate">
+    <article class="goal-card">
+      <div class="goal-card-top">
+        <div>
+          <p class="goal-owner"></p>
+          <h3 class="goal-title"></h3>
+          <p class="goal-category"></p>
+        </div>
+        <button class="icon-btn delete-btn" title="Eliminar objetivo">×</button>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span class="progress-text"></span>
+          <span class="streak-text"></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+      </div>
+
+      <div class="goal-stats">
+        <div><span>Acciones esta semana</span><strong class="done-count"></strong></div>
+        <div><span>Puntos</span><strong class="points-count"></strong></div>
+        <div><span>Fiabilidad</span><strong class="reliability-count"></strong></div>
+      </div>
+
+      <div class="goal-actions">
+        <button class="btn primary mark-done-btn">+1 hecho</button>
+        <button class="btn ghost clear-week-btn">Limpiar semana</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
